@@ -6,6 +6,7 @@ import domain.Tema;
 import service.Service;
 import validation.ValidationException;
 
+import javax.sound.midi.Soundbank;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -111,7 +112,9 @@ public class UI {
         int grupa = scanner.nextInt();
         System.out.print("Introduceti email: ");
         String email = scanner.next();
-        Student student = new Student(idStudent, numeStudent, grupa, email);
+        System.out.println("Introduceti teacher: ");
+        String teacher= scanner.next();
+        Student student = new Student(idStudent, numeStudent, grupa, email,teacher);
         Student student1 = service.addStudent(student);
         if (student1 == null) {
             System.out.println("Student adaugat cu succes!");
@@ -165,7 +168,9 @@ public class UI {
         int grupa = scanner.nextInt();
         System.out.print("Introduceti email: ");
         String email = scanner.next();
-        Student student = new Student(id, nume, grupa, email);
+        System.out.print("Introduceti teacher: ");
+        String teacher = scanner.next();
+        Student student = new Student(id, nume, grupa, email,teacher);
         Student student1 = service.updateStudent(student);
         if (student1 == null) {
             System.out.print("Studentul nu exista!");
