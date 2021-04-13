@@ -59,17 +59,34 @@ public class AssignmentTest {
         Files.write(file, Collections.singletonList("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><inbox></inbox>"), StandardCharsets.UTF_8);
     }
 
-    @Test
+    @Test(expected = ValidationException.class)
     public void tc_1_WBT(){
-        String id = "2";
-        Tema tema = service.addTema(new Tema(id, "naspa", 8, 7));
-        assertNotNull(service.findTema(id));
+        String id = "";
+        service.addTema(new Tema(id, "something", 12, 13));
+
     }
 
     @Test(expected = ValidationException.class)
     public void tc_2_WBT(){
+        String id = "100";
+        service.addTema(new Tema(id, "", 12, 13));
+
+    }
+    @Test(expected = ValidationException.class)
+    public void tc_3_WBT(){
         Integer deadline = 15;
-        Tema tema = service.addTema(new Tema("5", "naspa", deadline, 7));
-        service.addTema(tema);
+        service.addTema(new Tema("5", "naspa", deadline, 13));
+
+    }
+    @Test(expected = ValidationException.class)
+    public void tc_4_WBT(){
+
+        service.addTema(new Tema("5", "naspa", 12, 15));
+    }
+    @Test
+    public void tc_5_WBT(){
+        String id = "100";
+        Tema tema = service.addTema(new Tema(id, "something", 12, 13));
+        assertNotNull(service.findTema(id));
     }
 }
