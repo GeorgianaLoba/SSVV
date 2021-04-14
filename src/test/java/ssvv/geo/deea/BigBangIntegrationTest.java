@@ -1,6 +1,8 @@
 package ssvv.geo.deea;
 
+import domain.Nota;
 import domain.Student;
+import domain.Tema;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,22 +13,18 @@ import service.Service;
 import validation.NotaValidator;
 import validation.StudentValidator;
 import validation.TemaValidator;
-import validation.ValidationException;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.Collections;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
-
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-{
+public class BigBangIntegrationTest {
     Service service;
 
 
@@ -50,8 +48,8 @@ public class AppTest
         NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
         service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
         service.addStudent(new Student("1","Geo",934,"geodeaa@cool.ro","Andreea Vescan"));
+        Tema tema = service.addTema(new Tema("2", "something", 12, 13));
     }
-
     @After
     public void tearDown() throws Exception {
         Path file = Paths.get("src/test/java/resources/fisiere/Studenti.xml");
@@ -61,13 +59,8 @@ public class AppTest
         file = Paths.get("src/test/java/resources/fisiere/Note.xml");
         Files.write(file, Collections.singletonList("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><inbox></inbox>"), StandardCharsets.UTF_8);
     }
-
-    /**
-     * Rigorous Test :-)
-     */
-
     @Test
-    public void tc_1_addStudentSuccessfully(){
+    public void tc_1_addStudent(){
         Student student=new Student("12id1",	"Georgiana Andreea",	934	,"geodeea@cool.ro",	"Andreea Vescan");
 
         assertNull(service.addStudent(student));
@@ -79,92 +72,23 @@ public class AppTest
         //test case EC 1,5,8,10,13 BVA 4
 
     }
-    @Test (expected = ValidationException.class)
-    public void tc_5_addStudentError_emptyName(){
-        Student student=new Student("12id1",	"",	934	,"geodeea@cool.ro",	"Andreea Vescan");
-
-        service.addStudent(student);
-    }
-    @Test (expected = ValidationException.class)
-    public void tc_6_addStudentError_nullName(){
-        Student student=new Student("12id1",	null,	934	,"geodeea@cool.ro",	"Andreea Vescan");
-
-        service.addStudent(student);
-    }
-
-    @Test(expected = ValidationException.class)
-    public void tc_3_addStudentError_emptyId(){
-        Student student=new Student("",	"Geo",	934	,"geodeea@cool.ro",	"Andreea Vescan");
-
-        service.addStudent(student);
-    }
-    @Test(expected = ValidationException.class)
-    public void tc_4_addStudentError_idNull(){
-        Student student=new Student(null,	"Geo",	934	,"geodeea@cool.ro",	"Andreea Vescan");
-
-        service.addStudent(student);
-    }
-
     @Test
-    public void tc_2_addStudentError_idAlreadyExists(){
-        Student student=new Student("1",	"Georgiana",	934	,"geodeea@cool.ro",	"Andreea Vescan");
-        assertNotNull(service.addStudent(student));
-    }
-    @Test(expected = ValidationException.class)
-    public void tc_7_addStudentError_nullEmail(){
-        Student student=new Student("12id1",	"Geo",	934	,null,	"Andreea Vescan");
-
-        service.addStudent(student);
-
-    }
-
-    @Test(expected = ValidationException.class)
-    public void tc_8_addStudentError_invalidGroup(){
-        Student student=new Student("12id1",	"Geo",	-1	,"geodeea@cool.ro",	"Andreea Vescan");
-
-        service.addStudent(student);
-        //BVA 1
-    }
-
-    @Test(expected = ValidationException.class)
-    public void tc_9_addStudentError_emptyEmail(){
-        Student student=new Student("12id1",	"Geo",	934	,"",	"Andreea Vescan");
-
-        service.addStudent(student);
-    }
-    @Test(expected = ValidationException.class)
-    public void tc_10_addStudentError_emptyTeacher(){
-        Student student=new Student("12id1",	"Geo",	934	,"geodeea@cool.ro",	"");
-
-        service.addStudent(student);
-    }
-    @Test(expected = ValidationException.class)
-    public void tc_11_addStudentError_nullTeacher(){
-        Student student=new Student("12id1",	"Geo",	934	,"geodeea@cool.ro",	null);
-
-        service.addStudent(student);
+    public void tc_2_addTema(){
+        String id = "100";
+        Tema tema = service.addTema(new Tema(id, "something", 14, 13));
+        assertNotNull(service.findTema(id));
     }
     @Test
-    public void tc_12_addStudentSuccessfully_BVA2(){
-        Student student=new Student("10",	"Georgiana Andreea",	0	,"geodeea@cool.ro",	"Andreea Vescan");
+    public void tc_3_addGrade(){
 
-        assertNull(service.addStudent(student));
-
-
-
+        assertNull(service.addNota(new Nota("1","1","2",10.0, LocalDate.of(2018,4,14)),"good"));
     }
     @Test
-    public void tc_13_addStudentSuccessfully_BVA3(){
-        Student student=new Student("11",	"Georgiana Andreea",	1	,"geodeea@cool.ro",	"Andreea Vescan");
-
-        assertNull(service.addStudent(student));
-
+    public void tc_4_Integrate(){
+        service.addStudent(new Student("24","Geo",934,"geo@yahoo","Andreea Vescan"));
+        service.addTema(new Tema("25","do it",4,1));
+        assertNull(service.addNota(new Nota("3","24","25",9.4,LocalDate.of(2018,11,2)),"good"));
 
     }
-
-
-
-
-
 
 }

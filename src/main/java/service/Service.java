@@ -160,12 +160,21 @@ public class Service {
      * @param feedback - feedback-ul notei
      * @return null daca nota a fost adaugata sau nota daca aceasta exista deja
      */
-    public double addNota(Nota nota, String feedback){
+    public Nota addNota(Nota nota, String feedback){
         notaValidator.validate(nota);
         Student student = studentFileRepository.findOne(nota.getIdStudent());
         Tema tema = temaFileRepository.findOne(nota.getIdTema());
+        Nota nota1=notaFileRepository.findOne(nota.getID());
+        if(nota1!=null){
+            return nota1;
+        }
+
+
         int predare = calculeazaSPredare(nota.getData());
-        if(predare != tema.getDeadline()){
+        if(predare<=tema.getDeadline()){
+            notaFileRepository.save(nota);
+        }
+        else if(predare != tema.getDeadline()){
             if (predare-tema.getDeadline() == 1){
                 nota.setNota(nota.getNota()-2.5);
             }
@@ -173,8 +182,8 @@ public class Service {
                 throw new ValidationException("Studentul nu mai poate preda aceasta tema!");
             }
         }
-        notaFileRepository.save(nota);
-        String filename = "fisiere/" + student.getNume() + ".txt";
+
+        String filename = "src\\main\\resources\\fisiere\\" + student.getNume() + ".txt";
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filename, true))){
             bufferedWriter.write("\nTema: " + tema.getID());
             bufferedWriter.write("\nNota: " + nota.getNota());
@@ -185,7 +194,8 @@ public class Service {
         } catch (IOException exception){
             throw new ValidationException(exception.getMessage());
         }
-        return nota.getNota();
+
+        return null;
     }
 
     /**
