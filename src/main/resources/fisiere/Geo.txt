@@ -70,3 +70,9 @@ Nota: 6.9
 Predata in saptamana: 5
 Deadline: 4
 Feedback: good
+
+Tema: 66dar
+Nota: 6.9
+Predata in saptamana: 5
+Deadline: 4
+Feedback: good
