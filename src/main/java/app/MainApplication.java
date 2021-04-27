@@ -16,9 +16,9 @@ public class MainApplication {
     public static void main(String[] args) {
         StudentValidator studentValidator = new StudentValidator();
         TemaValidator temaValidator = new TemaValidator();
-        String filenameStudent = "fisiere/Studenti.xml";
-        String filenameTema = "fisiere/Teme.xml";
-        String filenameNota = "fisiere/Note.xml";
+        String filenameStudent = "C:\\Users\\Geo\\Desktop\\uni-final\\design-patterns\\SSVV\\src\\main\\resources\\fisiere\\Studenti.xml";
+        String filenameTema = "C:\\Users\\Geo\\Desktop\\uni-final\\design-patterns\\SSVV\\src\\main\\resources\\fisiere\\Teme.xml";
+        String filenameNota = "C:\\Users\\Geo\\Desktop\\uni-final\\design-patterns\\SSVV\\src\\main\\resources\\fisiere\\Note.xml";
 
        //StudentFileRepository studentFileRepository = new StudentFileRepository(filenameStudent);
         //TemaFileRepository temaFileRepository = new TemaFileRepository(filenameTema);

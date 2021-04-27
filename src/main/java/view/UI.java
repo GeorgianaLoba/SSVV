@@ -386,7 +386,8 @@ public class UI {
         String feedback = scanner.nextLine();        //System.out.println(feedback);
         Nota notaCatalog = new Nota(idNota, idStudent, nrTema, nota, dataPredare);
         Nota notaFinala = service.addNota(notaCatalog, feedback);
-        System.out.println("Nota maxima pe care o poate primi studentul este: " + notaFinala.getNota());
+        Nota notaMea = service.findNota(idNota);
+        System.out.println("Nota maxima pe care o poate primi studentul este: " + notaMea.getNota());
     }
 
     /**

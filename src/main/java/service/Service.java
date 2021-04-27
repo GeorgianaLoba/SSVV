@@ -182,8 +182,7 @@ public class Service {
                 throw new ValidationException("Studentul nu mai poate preda aceasta tema!");
             }
         }
-
-        String filename = "src\\main\\resources\\fisiere\\" + student.getNume() + ".txt";
+        String filename = "C:\\Users\\Geo\\Desktop\\uni-final\\design-patterns\\SSVV\\src\\main\\resources\\fisiere" + student.getNume() + ".txt";
         try(BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filename, true))){
             bufferedWriter.write("\nTema: " + tema.getID());
             bufferedWriter.write("\nNota: " + nota.getNota());
