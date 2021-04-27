@@ -48,7 +48,7 @@ public class BigBangIntegrationTest {
         NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
         service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
         service.addStudent(new Student("666","Geo",934,"geodeaa@cool.ro","Andreea Vescan"));
-        Tema tema = service.addTema(new Tema("666", "something", 4,1));
+        Tema tema = service.addTema(new Tema("666", "something", 12,1));
     }
     @After
     public void tearDown() throws Exception {
@@ -80,7 +80,9 @@ public class BigBangIntegrationTest {
     }
     @Test
     public void tc_3_addGrade(){
-        assertNull(service.addNota(new Nota("666","666","666",9.4, LocalDate.of(2018,11,2)),"good"));
+        service.addNota(new Nota("666","666","666",9, LocalDate.of(2018,11,2)),"good");
+        assertNotNull(service.findNota("666"));
+
     }
     @Test
     public void tc_4_Integrate(){

@@ -78,8 +78,8 @@ public class IntegralIntegrationTest {
     @Test
     public void tc_3_incremental_bottom(){
         service.addStudent(new Student("66iar","Geo",934,"geo@yahoo","Andreea Vescan"));
-        service.addTema(new Tema("66dar","do it",4,1));
-        service.addNota(new Nota("666","66iar","66dar",9.4,LocalDate.of(2018,11,2)),"good");
+        service.addTema(new Tema("66dar","do it",12,1));
+        service.addNota(new Nota("666","66iar","66dar",9,LocalDate.of(2018,11,2)),"good");
         assertNotNull(service.findNota("666"));
     }
 
