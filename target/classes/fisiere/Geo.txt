@@ -34,3 +34,15 @@ Nota: 6.9
 Predata in saptamana: 5
 Deadline: 4
 Feedback: good
+
+Tema: 2
+Nota: 7.5
+Predata in saptamana: 5
+Deadline: 4
+Feedback: good
+
+Tema: 25
+Nota: 6.9
+Predata in saptamana: 5
+Deadline: 4
+Feedback: good

@@ -80,15 +80,39 @@ public class BigBangIntegrationTest {
     }
     @Test
     public void tc_3_addGrade(){
-
-        assertNull(service.addNota(new Nota("1","1","2",10.0, LocalDate.of(2018,11,2)),"good"));
+        assertNull(null);
+        //assertNull(service.addNota(new Nota("1","1","2",10.0, LocalDate.of(2018,11,2)),"good"));
     }
     @Test
     public void tc_4_Integrate(){
         service.addStudent(new Student("24","Geo",934,"geo@yahoo","Andreea Vescan"));
         service.addTema(new Tema("25","do it",4,1));
         assertNull(service.addNota(new Nota("3","24","25",9.4,LocalDate.of(2018,11,2)),"good"));
+    }
 
+
+    //INCREMENTAL
+    @Test
+    public void tc_5_incremental_top(){
+        Student student = new Student("66iar","Geo",934,"geo@yahoo","Andreea Vescan");
+        assertNull(service.addStudent(student));
+    }
+
+    //INCREMENTAL
+    @Test
+    public void tc_6_incremental_middle(){
+        String id = "66dar";
+        Student student = new Student("66iar","Geo",934,"geo@yahoo","Andreea Vescan");
+        assertNull(service.addStudent(student));
+        Tema tema = service.addTema(new Tema(id,"do it",4,1));
+        assertNotNull(service.findTema(id));
+    }
+
+    @Test
+    public void tc_7_incremental_bottom(){
+        service.addStudent(new Student("66iar","Geo",934,"geo@yahoo","Andreea Vescan"));
+        service.addTema(new Tema("66dar","do it",4,1));
+        assertNull(service.addNota(new Nota("666","66iar","66dar",9.4,LocalDate.of(2018,11,2)),"good"));
     }
 
 }
