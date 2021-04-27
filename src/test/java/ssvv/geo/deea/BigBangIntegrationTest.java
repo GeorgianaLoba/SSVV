@@ -47,8 +47,8 @@ public class BigBangIntegrationTest {
         NotaValidator notaValidator = new NotaValidator(studentXMLRepository, temaXMLRepository);
         NotaXMLRepo notaXMLRepository = new NotaXMLRepo(filenameNota);
         service = new Service(studentXMLRepository, studentValidator, temaXMLRepository, temaValidator, notaXMLRepository, notaValidator);
-        service.addStudent(new Student("1","Geo",934,"geodeaa@cool.ro","Andreea Vescan"));
-        Tema tema = service.addTema(new Tema("2", "something", 4, 1));
+        service.addStudent(new Student("666","Geo",934,"geodeaa@cool.ro","Andreea Vescan"));
+        Tema tema = service.addTema(new Tema("666", "something", 4,1));
     }
     @After
     public void tearDown() throws Exception {
@@ -80,39 +80,13 @@ public class BigBangIntegrationTest {
     }
     @Test
     public void tc_3_addGrade(){
-        assertNull(null);
-        //assertNull(service.addNota(new Nota("1","1","2",10.0, LocalDate.of(2018,11,2)),"good"));
+        assertNull(service.addNota(new Nota("666","666","666",9.4, LocalDate.of(2018,11,2)),"good"));
     }
     @Test
     public void tc_4_Integrate(){
         service.addStudent(new Student("24","Geo",934,"geo@yahoo","Andreea Vescan"));
         service.addTema(new Tema("25","do it",4,1));
         assertNull(service.addNota(new Nota("3","24","25",9.4,LocalDate.of(2018,11,2)),"good"));
-    }
-
-
-    //INCREMENTAL
-    @Test
-    public void tc_5_incremental_top(){
-        Student student = new Student("66iar","Geo",934,"geo@yahoo","Andreea Vescan");
-        assertNull(service.addStudent(student));
-    }
-
-    //INCREMENTAL
-    @Test
-    public void tc_6_incremental_middle(){
-        String id = "66dar";
-        Student student = new Student("66iar","Geo",934,"geo@yahoo","Andreea Vescan");
-        assertNull(service.addStudent(student));
-        Tema tema = service.addTema(new Tema(id,"do it",4,1));
-        assertNotNull(service.findTema(id));
-    }
-
-    @Test
-    public void tc_7_incremental_bottom(){
-        service.addStudent(new Student("66iar","Geo",934,"geo@yahoo","Andreea Vescan"));
-        service.addTema(new Tema("66dar","do it",4,1));
-        assertNull(service.addNota(new Nota("666","66iar","66dar",9.4,LocalDate.of(2018,11,2)),"good"));
     }
 
 }
